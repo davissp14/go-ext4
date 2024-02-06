@@ -72,7 +72,7 @@ func ExampleExtentNavigator_Read() {
 }
 
 func TestExtentNavigator_ReadSymlink(t *testing.T) {
-	f, inode, err := GetTestInode(TestSymlinkInodeNumber)
+	f, inode, err := GetTestInodeWithSym(TestSymlinkInodeNumber)
 	log.PanicIf(err)
 
 	defer f.Close()
@@ -90,7 +90,7 @@ func TestExtentNavigator_ReadSymlink(t *testing.T) {
 		offset += uint64(len(data))
 	}
 
-	expectedBytes := []byte("thejungle.txt")
+	expectedBytes := []byte("./thejungle.txt")
 
 	if bytes.Compare(actualBytes, expectedBytes) != 0 {
 		t.Fatalf("Bytes not read correctly.")

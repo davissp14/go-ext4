@@ -50,6 +50,36 @@ func GetTestInode(inodeNumber int) (f *os.File, inode *Inode, err error) {
 	return f, inode, nil
 }
 
+func GetTestInodeWithSym(inodeNumber int) (f *os.File, inode *Inode, err error) {
+	defer func() {
+		if state := recover(); state != nil {
+			err = log.Wrap(state.(error))
+		}
+	}()
+
+	filepath := path.Join(assetsPath, "tiny_with_sym.ext4")
+
+	f, err = os.Open(filepath)
+	log.PanicIf(err)
+
+	_, err = f.Seek(Superblock0Offset, io.SeekStart)
+	log.PanicIf(err)
+
+	sb, err := NewSuperblockWithReader(f)
+	log.PanicIf(err)
+
+	bgdl, err := NewBlockGroupDescriptorListWithReadSeeker(f, sb)
+	log.PanicIf(err)
+
+	bgd, err := bgdl.GetWithAbsoluteInode(inodeNumber)
+	log.PanicIf(err)
+
+	inode, err = NewInodeWithReadSeeker(bgd, f, inodeNumber)
+	log.PanicIf(err)
+
+	return f, inode, nil
+}
+
 func GetInode(filesystemPath string, inodeNumber int) (f *os.File, inode *Inode, err error) {
 	defer func() {
 		if state := recover(); state != nil {
