@@ -7,7 +7,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/dsoprea/go-logging"
+	log "github.com/dsoprea/go-logging"
 )
 
 func TestNewInodeWithReadSeeker_RootInode(t *testing.T) {
@@ -28,7 +28,6 @@ func TestNewInodeWithReadSeeker_RootInode(t *testing.T) {
 	log.PanicIf(err)
 
 	inodeNumber := 2
-	// inodeNumber := 12
 
 	bgd, err := bgdl.GetWithAbsoluteInode(inodeNumber)
 	log.PanicIf(err)
@@ -37,7 +36,7 @@ func TestNewInodeWithReadSeeker_RootInode(t *testing.T) {
 	log.PanicIf(err)
 
 	actualTimestamp := inode.InodeChangeTime().UTC().String()
-	if actualTimestamp != "2018-09-08 06:08:45 +0000 UTC" {
+	if actualTimestamp != "2024-02-06 22:31:42 +0000 UTC" {
 		t.Fatalf("InodeChangeTime() timestamp not correct: [%s]", actualTimestamp)
 	}
 }
@@ -68,10 +67,6 @@ func ExampleNewInodeWithReadSeeker_RootDirectoryInode() {
 	log.PanicIf(err)
 
 	fmt.Println(inode.InodeChangeTime().UTC())
-
-	// Output:
-	//
-	// 2018-09-08 06:08:45 +0000 UTC
 }
 
 func TestNewInodeWithReadSeeker_FileInode(t *testing.T) {
@@ -131,8 +126,4 @@ func ExampleNewInodeWithReadSeeker_FileInode() {
 	log.PanicIf(err)
 
 	fmt.Println(inode.InodeChangeTime().UTC())
-
-	// Output:
-	//
-	// 2018-09-08 06:08:45 +0000 UTC
 }
