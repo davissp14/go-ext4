@@ -1,9 +1,8 @@
-module github.com/go-ext4
+module github.com/davissp14/go-ext4
 
 go 1.21.0
 
 require (
-	github.com/davissp14/go-ext4 v0.0.0-20190528173430-c13b09fc0ff8
 	github.com/dsoprea/go-logging v0.0.0-20200710184922-b02d349568dd
 )
 
