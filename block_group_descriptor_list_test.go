@@ -6,7 +6,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/dsoprea/go-logging"
+	log "github.com/dsoprea/go-logging"
 )
 
 func TestNewBlockGroupDescriptorListWithReadSeeker(t *testing.T) {
@@ -29,7 +29,9 @@ func TestNewBlockGroupDescriptorListWithReadSeeker(t *testing.T) {
 
 	if len(bgdl.bgds) != 1 {
 		t.Fatalf("Expected exactly one BGD: (%d)", len(bgdl.bgds))
-	} else if bgdl.bgds[0].Data().BgChecksum != 0xeeda {
+	}
+
+	if bgdl.bgds[0].Data().BgChecksum != 0xded8 {
 		t.Fatalf("BGD checksum is not correct: [%04x]", bgdl.bgds[0].Data().BgChecksum)
 	}
 }

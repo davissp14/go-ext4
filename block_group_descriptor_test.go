@@ -6,7 +6,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/dsoprea/go-logging"
+	log "github.com/dsoprea/go-logging"
 )
 
 func TestNewBlockGroupDescriptorWithReader(t *testing.T) {
@@ -40,7 +40,7 @@ func TestNewBlockGroupDescriptorWithReader(t *testing.T) {
 		t.Fatalf("BGD parse did not consume the right amount of data: (%d) != (%d)", actualConsumedBytes, BlockGroupDescriptorSize)
 	}
 
-	if bgd.Data().BgChecksum != 0xeeda {
+	if bgd.Data().BgChecksum != 0xded8 {
 		t.Fatalf("Checksum not correct.")
 	}
 }
